@@ -3,6 +3,7 @@ package com.example.campusconnect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.ActionBar
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -21,9 +22,15 @@ class SignUp : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
 
         editName = findViewById(R.id.signUpName)
         editAdminNum = findViewById(R.id.signUpAdminNum)
