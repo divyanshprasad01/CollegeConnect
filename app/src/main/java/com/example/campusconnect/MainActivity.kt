@@ -10,16 +10,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var signInClient: GoogleSignInClient
     private lateinit var bottomNavigationBar : BottomNavigationView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         bottomNavigationBar = findViewById(R.id.bottom_navigation)
 
@@ -34,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             val email = account.email
             val ProgfileImage = account.photoUrl
         }
-
 
 
         bottomNavigationBar.setOnItemSelectedListener {item ->

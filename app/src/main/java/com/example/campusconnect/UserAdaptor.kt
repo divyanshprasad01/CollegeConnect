@@ -1,6 +1,8 @@
 package com.example.campusconnect
 
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.getIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class UserAdaptor(val context: Context, val userList: ArrayList<User>): RecyclerView.Adapter<UserAdaptor.UserViewHolder>() {
+
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdaptor.UserViewHolder {
@@ -19,6 +23,16 @@ class UserAdaptor(val context: Context, val userList: ArrayList<User>): Recycler
         val currentUser = userList[position]
 
         holder.userName.text = currentUser.name
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context , MessageActivity::class.java)
+
+            intent.putExtra("name" , currentUser.name)
+            intent.putExtra("uid", currentUser.uid)
+
+
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
