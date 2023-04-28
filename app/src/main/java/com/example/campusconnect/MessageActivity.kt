@@ -61,6 +61,7 @@ class MessageActivity : AppCompatActivity() {
 
 
         mdbRef.child("messages").child(senderRoom).addValueEventListener(object: ValueEventListener{
+
             override fun onDataChange(snapshot: DataSnapshot) {
                 messageList.clear()
                 for(postSnapshot in snapshot.children){

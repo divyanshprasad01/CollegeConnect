@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:padding="10dp"
         android:layout_margin="5dp"
-        android:text="This is sent message"
+        android:text="This is recieved message"
         android:textColor="@color/white"
         android:background="@drawable/message_design"/>
 

@@ -32,7 +32,7 @@ class MessageAdaptor(val context: Context, val messageList: ArrayList<Message>, 
             return sentViewHolder(view)
         }else{
             val view:View = LayoutInflater.from(context).inflate(R.layout.message_recieved_layout,parent,false)
-            return sentViewHolder(view)
+            return recievedViewHolder(view)
         }
     }
 
@@ -43,7 +43,7 @@ class MessageAdaptor(val context: Context, val messageList: ArrayList<Message>, 
     override fun getItemViewType(position: Int): Int {
         val currentMessage = messageList[position]
 
-        if(currentLoggedInUser.equals(currentMessage.senderId)){
+        if(currentLoggedInUser == currentMessage.senderId){
             return ITEM_SENT
         }else{
             return ITEM_RECIEVED
