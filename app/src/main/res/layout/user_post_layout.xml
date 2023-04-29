@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="#ECECEC"
-        android:src="@drawable/image1" />
+        android:src="@drawable/image_select_placeholder" />
 
     <View
         android:layout_width="match_parent"

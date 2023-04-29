@@ -28,8 +28,7 @@
         android:backgroundTint="@color/white"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:placeholderTextColor="@color/black"
-        app:placeholderText="WRITE YOUR CAPTION HERE..">
+        android:hint="WRITE YOUR CAPTION HERE..">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="100dp"

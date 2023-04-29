@@ -1,12 +1,17 @@
 package com.example.campusconnect
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 class postAdaptor(val context:Context, val postList:ArrayList<postObject>):RecyclerView.Adapter<postAdaptor.postViewHolder>() {
     class postViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView){
@@ -16,7 +21,7 @@ class postAdaptor(val context:Context, val postList:ArrayList<postObject>):Recyc
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): postViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.user_post_layout,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.user_post_layout,parent,false)
         return postViewHolder(view)
     }
 
@@ -29,7 +34,25 @@ class postAdaptor(val context:Context, val postList:ArrayList<postObject>):Recyc
 
         holder.userName.text = currentPost.userName
         holder.caption.text = currentPost.caption
-        BackgroundImageLoader(currentPost.imageLink!! , holder.imageView)
+
+        val imageBitmap = loadImageInBackground(currentPost.imageLink)
+        holder.imageView.setImageBitmap(imageBitmap)
+
+    }
+
+    private fun loadImageInBackground(imageLink: String?): Bitmap? {
+        try {
+            val urlConnection = URL(imageLink)
+            val connecton: HttpURLConnection = urlConnection.openConnection() as HttpURLConnection
+            connecton.doInput
+            connecton.connect()
+            val input: InputStream = connecton.inputStream
+            val bitMap:Bitmap = BitmapFactory.decodeStream(input)
+            return bitMap
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+        return null
     }
 
 }
