@@ -3,11 +3,13 @@ package com.example.campusconnect
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.loader.content.AsyncTaskLoader
 import androidx.recyclerview.widget.RecyclerView
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -35,24 +37,27 @@ class postAdaptor(val context:Context, val postList:ArrayList<postObject>):Recyc
         holder.userName.text = currentPost.userName
         holder.caption.text = currentPost.caption
 
-        val imageBitmap = loadImageInBackground(currentPost.imageLink)
-        holder.imageView.setImageBitmap(imageBitmap)
+        loadInBackGround(currentPost.imageLink , holder.imageView).execute()
 
     }
 
-    private fun loadImageInBackground(imageLink: String?): Bitmap? {
-        try {
-            val urlConnection = URL(imageLink)
-            val connecton: HttpURLConnection = urlConnection.openConnection() as HttpURLConnection
-            connecton.doInput
-            connecton.connect()
-            val input: InputStream = connecton.inputStream
-            val bitMap:Bitmap = BitmapFactory.decodeStream(input)
-            return bitMap
-        }catch (e:Exception){
-            e.printStackTrace()
+
+    class loadInBackGround(val imageLink:String? , val imageView: ImageView): AsyncTask<Void,Bitmap,Bitmap>() {
+
+//         private val imageLink = imageLink
+//         private val imageView = imageView
+        override fun doInBackground(vararg p0: Void?): Bitmap {
+            val imageLink = URL(imageLink)
+            val bmp = BitmapFactory.decodeStream(imageLink.openConnection().getInputStream())
+            return bmp
         }
-        return null
+
+        override fun onPostExecute(result: Bitmap?) {
+            super.onPostExecute(result)
+
+            imageView.setImageBitmap(result)
+        }
     }
 
 }
+
